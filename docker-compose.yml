@@ -1,0 +1,33 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s  # TensorFlow takes time on first boot
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # VITE_API_URL is baked into the JS bundle at build time.
+        # It must be the URL the browser can reach — not a Docker-internal name.
+        # For local use this defaults to http://localhost:8000.
+        # For a server deployment set VITE_API_URL in your .env file.
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
