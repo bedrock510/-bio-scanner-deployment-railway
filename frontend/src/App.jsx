@@ -548,19 +548,82 @@ function UploadScreen({ onSubmit }) {
                 <p style={{ fontSize: 10, color: 'var(--text-light)', marginTop: 4 }}>WAV preferred · 20–30 seconds</p>
               </div>
             ) : (
-              <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                <button className={`record-btn ${recording ? 'recording' : ''}`} onClick={recording ? stopRecording : startRecording}>
-                  {recording
-                    ? <svg width="20" height="20" viewBox="0 0 24 24" fill="#ef4444"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
-                    : <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--gold)"><circle cx="12" cy="12" r="7"/></svg>
-                  }
-                </button>
-                <p style={{ fontSize: 12, color: recording ? '#ef4444' : 'var(--text-light)', fontWeight: recording ? 500 : 300 }}>
-                  {recording ? `Recording… ${fmt(recordingTime)}` : 'Tap to begin recording'}
-                </p>
-                <p style={{ fontSize: 10, color: 'var(--text-light)', marginTop: 4 }}>
-                  Speak naturally for 20–30 seconds
-                </p>
+              <div>
+                {/* Instructions */}
+                <div style={{ background: 'var(--off-white)', border: '1px solid var(--border)', padding: '20px 24px', marginBottom: 20 }}>
+                  <p style={{ fontSize: 10, fontWeight: 500, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 4 }}>
+                    White Glove Wellness® Voice Longevity Analysis
+                  </p>
+                  <p style={{ fontSize: 11, color: 'var(--text-light)', marginBottom: 16, fontStyle: 'italic' }}>
+                    Guided Voice Recording — Approximately 25–35 seconds
+                  </p>
+                  <p style={{ fontSize: 11, color: 'var(--text-mid)', marginBottom: 2 }}>Please record in a quiet environment.</p>
+                  <p style={{ fontSize: 11, color: 'var(--text-mid)', marginBottom: 16 }}>Hold your phone 6–10 inches from your mouth and speak clearly.</p>
+
+                  <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 14 }}>
+                    <p style={{ fontSize: 10, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-dark)', marginBottom: 6 }}>Step 1 — Breath & Vocal Stability</p>
+                    <p style={{ fontSize: 12, color: 'var(--text-mid)', lineHeight: 1.7, fontWeight: 300 }}>
+                      Take a slow breath in through your nose.<br />
+                      Now exhale while holding the sound: <strong style={{ color: 'var(--text-dark)' }}>"Ahhhhh."</strong><br />
+                      Hold the sound comfortably for 4 seconds.
+                    </p>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 14 }}>
+                    <p style={{ fontSize: 10, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-dark)', marginBottom: 6 }}>Step 2 — Vocal Resonance</p>
+                    <p style={{ fontSize: 12, color: 'var(--text-mid)', lineHeight: 1.7, fontWeight: 300 }}>
+                      Please slowly say the following sounds:<br />
+                      <strong style={{ color: 'var(--text-dark)', letterSpacing: '0.15em' }}>Ah — Oh — Eee — Mmm</strong>
+                    </p>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 14 }}>
+                    <p style={{ fontSize: 10, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-dark)', marginBottom: 6 }}>Step 3 — Speech Clarity</p>
+                    <p style={{ fontSize: 12, color: 'var(--text-mid)', lineHeight: 1.7, fontWeight: 300 }}>
+                      Please read the following sentence:<br />
+                      <em style={{ color: 'var(--text-dark)', fontStyle: 'italic' }}>"My breath is steady, my mind is clear, and my body feels balanced and strong."</em>
+                    </p>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 14 }}>
+                    <p style={{ fontSize: 10, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-dark)', marginBottom: 6 }}>Step 4 — Cognitive Task</p>
+                    <p style={{ fontSize: 12, color: 'var(--text-mid)', lineHeight: 1.7, fontWeight: 300 }}>
+                      Please count from <strong style={{ color: 'var(--text-dark)' }}>1 to 10</strong>.<br />
+                      Now count backwards from <strong style={{ color: 'var(--text-dark)' }}>10 to 1</strong>.
+                    </p>
+                  </div>
+
+                  <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14 }}>
+                    <p style={{ fontSize: 10, fontWeight: 500, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--text-dark)', marginBottom: 6 }}>Why This Recording Is Helpful</p>
+                    <p style={{ fontSize: 11, color: 'var(--text-light)', lineHeight: 1.7, fontWeight: 300, marginBottom: 8 }}>
+                      This voice sample helps capture patterns related to:
+                    </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 12px' }}>
+                      {['breath efficiency','vocal stability','speech clarity','cognitive processing','nervous system balance','vocal vitality'].map(item => (
+                        <span key={item} style={{ fontSize: 10, color: 'var(--text-light)', letterSpacing: '0.08em' }}>· {item}</span>
+                      ))}
+                    </div>
+                    <p style={{ fontSize: 10, color: 'var(--gold)', marginTop: 10, letterSpacing: '0.1em', fontStyle: 'italic' }}>
+                      These signals contribute to your White Glove Wellness® Longevity Intelligence Report™.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Record button */}
+                <div style={{ textAlign: 'center', padding: '16px 0' }}>
+                  <button className={`record-btn ${recording ? 'recording' : ''}`} onClick={recording ? stopRecording : startRecording}>
+                    {recording
+                      ? <svg width="20" height="20" viewBox="0 0 24 24" fill="#ef4444"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+                      : <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--gold)"><circle cx="12" cy="12" r="7"/></svg>
+                    }
+                  </button>
+                  <p style={{ fontSize: 12, color: recording ? '#ef4444' : 'var(--text-light)', fontWeight: recording ? 500 : 300 }}>
+                    {recording ? `Recording… ${fmt(recordingTime)}` : 'Tap to begin recording'}
+                  </p>
+                  <p style={{ fontSize: 10, color: 'var(--text-light)', marginTop: 4 }}>
+                    Follow the steps above · 25–35 seconds
+                  </p>
+                </div>
               </div>
             )}
 
